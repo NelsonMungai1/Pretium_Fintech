@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_app/screens/onboarding/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -38,9 +39,9 @@ class _SplashScreenState extends State<SplashScreen>
 
     _animationController.forward();
 
-    // Navigate to home screen after 3 seconds
+    // Navigate to onboarding screen after 3 seconds
     Future.delayed(const Duration(seconds: 3), () {
-      Get.offNamed('/home'); // Replace with your home route
+      Get.off(() => const OnboardingScreen());
     });
   }
 
@@ -63,7 +64,7 @@ class _SplashScreenState extends State<SplashScreen>
               child: ScaleTransition(
                 scale: _scaleAnimation,
                 child: Image.asset(
-                  'assets/images/logo.png',
+                  'assets/logo/logo.png',
                   width: 200,
                   height: 200,
                   fit: BoxFit.contain,
