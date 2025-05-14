@@ -105,7 +105,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             curve: Curves.easeInOut,
                           );
                         } else {
-                          Get.replace(const LoginScreen());
+                          Get.offAll(() => const LoginScreen());
                         }
                       },
                       style: ElevatedButton.styleFrom(
