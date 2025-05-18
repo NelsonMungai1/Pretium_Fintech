@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_app/screens/register.dart';
-import 'package:my_app/screens/forgot_password_screen.dart';
-import 'package:my_app/screens/pin_setup_screen.dart';
+import 'package:my_app/screens/login.dart';
+import 'package:my_app/screens/verification_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  bool _obscurePassword = false;
-  bool _rememberMe = false;
+class _RegisterScreenState extends State<RegisterScreen> {
+  bool _obscurePassword = true;
+  bool _acceptTerms = false;
 
   @override
   Widget build(BuildContext context) {
@@ -23,36 +22,20 @@ class _LoginScreenState extends State<LoginScreen> {
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 40),
-              // Logo
-              Container(
-                width: 80,
-                height: 80,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.1),
-                      spreadRadius: 1,
-                      blurRadius: 10,
-                      offset: const Offset(0, 1),
-                    ),
-                  ],
-                ),
-                child: const Icon(
-                  Icons.account_balance_wallet_outlined,
-                  size: 40,
-                  color: Color(0xFF0B735F),
-                ),
+              // Back button
+              IconButton(
+                icon: const Icon(Icons.arrow_back, color: Color(0xFF0B735F)),
+                onPressed: () => Get.back(),
+                padding: EdgeInsets.zero,
+                alignment: Alignment.centerLeft,
               ),
-              const SizedBox(height: 24),
-              // Welcome Back text
+              const SizedBox(height: 16),
+
+              // Title and subtitle
               const Text(
-                'Welcome Back!',
+                'Create Account',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -61,14 +44,15 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 8),
               const Text(
-                'Sign in to continue',
+                'Simplify your crypto payments with us',
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.black54,
                 ),
               ),
-              const SizedBox(height: 40),
-              // Email field
+              const SizedBox(height: 32),
+
+              // First Name field
               Container(
                 decoration: BoxDecoration(
                   color: Colors.grey[100],
@@ -76,9 +60,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 child: const TextField(
                   decoration: InputDecoration(
-                    hintText: 'Email',
+                    hintText: 'First Name',
                     prefixIcon: Icon(
-                      Icons.email_outlined,
+                      Icons.person_outline,
                       color: Colors.grey,
                     ),
                     border: InputBorder.none,
@@ -90,6 +74,53 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               const SizedBox(height: 16),
+
+              // Last Name field
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[100],
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Last Name',
+                    prefixIcon: const Icon(
+                      Icons.person_outline,
+                      color: Colors.grey,
+                    ),
+                    border: InputBorder.none,
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 16,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // Email field
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[100],
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Email',
+                    prefixIcon: const Icon(
+                      Icons.email_outlined,
+                      color: Colors.grey,
+                    ),
+                    border: InputBorder.none,
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 16,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+
               // Password field
               Container(
                 decoration: BoxDecoration(
@@ -125,45 +156,41 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
-              // Remember me and Forgot Password row
+              const SizedBox(height: 20),
+
+              // Terms and conditions checkbox
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 24,
-                        height: 24,
-                        child: Checkbox(
-                          value: _rememberMe,
-                          onChanged: (value) {
-                            setState(() {
-                              _rememberMe = value ?? false;
-                            });
-                          },
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          activeColor: const Color(0xFF0B735F),
-                        ),
+                  SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: Checkbox(
+                      value: _acceptTerms,
+                      onChanged: (value) {
+                        setState(() {
+                          _acceptTerms = value ?? false;
+                        });
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
                       ),
-                      const SizedBox(width: 8),
-                      const Text(
-                        'Remember me',
-                        style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ],
+                      activeColor: const Color(0xFF0B735F),
+                    ),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      Get.to(() => const ForgotPasswordScreen());
+                  const SizedBox(width: 8),
+                  const Text(
+                    'Accept ',
+                    style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: 14,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      // Show terms and conditions
                     },
                     child: const Text(
-                      'Forgot Password?',
+                      'Terms and Conditions',
                       style: TextStyle(
                         color: Color(0xFF0B735F),
                         fontSize: 14,
@@ -173,16 +200,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 24),
-              // Login button
+              const SizedBox(height: 32),
+
+              // Create Account button
               SizedBox(
                 width: double.infinity,
                 height: 56,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Handle login
-                    // For demo purposes, navigate to PIN setup screen
-                    Get.to(() => const PinSetupScreen());
+                    // Navigate to verification screen
+                    Get.to(() => const VerificationScreen());
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF0B735F),
@@ -191,7 +218,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   child: const Text(
-                    'Login',
+                    'Create Account',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -201,12 +228,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               const SizedBox(height: 24),
-              // Sign Up row
+
+              // Already have an account row
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    "Don't have an account? ",
+                    'Already have an account?',
                     style: TextStyle(
                       color: Colors.black54,
                       fontSize: 14,
@@ -214,10 +242,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Get.to(() => const RegisterScreen());
+                      Get.offAll(() => const LoginScreen());
                     },
                     child: const Text(
-                      'Sign Up',
+                      'Login',
                       style: TextStyle(
                         color: Color(0xFF0B735F),
                         fontSize: 14,
